@@ -1,2 +1,2 @@
 # express-wetube-challenge
-express + pug based video community platform using mongodb and object storage
+express v4 based video community platform using ffmpeg, pug, mongodb, minio
