@@ -1,0 +1,44 @@
+import express from "express";
+import morgan from "morgan";
+import path from "path";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+
+import rootRouter from "./routers/rootRouter";
+import { localsMiddleware } from "./middlewares";
+
+const app = express();
+
+// Templating Engine
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+// Logger & Options
+const logger = morgan("dev");
+app.use(logger);
+app.use(express.urlencoded({ extended: true }));
+
+// Cookie Session
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    },
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  })
+);
+app.use(localsMiddleware);
+
+// Static Routes
+app.use(express.static("public"));
+app.use("/upload", express.static("files"));
+app.use("/static", express.static("assets"));
+
+// Dynamic Routes
+app.use("/", rootRouter);
+
+export default app;

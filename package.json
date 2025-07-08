@@ -1,0 +1,38 @@
+{
+  "name": "express-wetube-challenge",
+  "version": "0.1.0",
+  "description": "The best way to watch videos",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js",
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.5.0",
+    "express": "^4",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.15.2",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.1",
+    "pug": "^3.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/node": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.2",
+    "nodemon": "^3.1.10",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  }
+}
