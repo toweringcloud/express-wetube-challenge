@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  center
+    h2=pageTitle
+  p.info Please edit your profile information if necessary.
+  form(method="POST" enctype="multipart/form-data")
+    .flex-container
+      .item3
+        label(for="loginid") Email Address
+        input(type="email" name="email" placeholder="Email" required value=loggedInUser.email)
+      .item3
+        label(for="loginid") Login ID
+        input(type="text" id="loginid" name="username" placeholder="Username" required value=loggedInUser.username)
+    .flex-container
+      .item3
+        label(for="nickname") Nickname
+        input(type="text" id="nickname" name="nickname" placeholder="Nickname" value=loggedInUser.nickname)
+      .item3
+        label(for="location") Location
+        input(type="text" id="location" name="location" placeholder="Location" value=loggedInUser.location)
+    label(for="avatar") Avatar File
+    input(type="file" id="avatar" name="avatar" accept="image/*" value=loggedInUser.avatarUrl)
+    center
+      input(type="submit" value="MODIFY")
+  if !loggedInUser.socialOnly
+    br
+    div
+      span 😊 Want to change your password? &nbsp;
+      a(href="change-pw") Change Password &rarr;

@@ -5,6 +5,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 
 import rootRouter from "./routers/rootRouter";
+import userRouter from "./routers/userRouter";
 import { localsMiddleware } from "./middlewares";
 
 const app = express();
@@ -28,17 +29,17 @@ app.use(
     },
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
   })
 );
 app.use(localsMiddleware);
 
 // Static Routes
-app.use(express.static("public"));
 app.use("/upload", express.static("files"));
 app.use("/static", express.static("assets"));
 
 // Dynamic Routes
 app.use("/", rootRouter);
+app.use("/users", userRouter);
 
 export default app;

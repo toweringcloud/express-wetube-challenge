@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  center
+    h2=pageTitle
+  br
+  form(method="POST")
+    input(type="text" name="username" placeholder="Username" required)
+    input(type="password" name="password" placeholder="Password" required)
+    input(type="submit" value="LOGIN")
+  if errorMessage
+    p.warning=errorMessage
+  br
+  div
+    span 😎 Don't have an account? &nbsp;
+    a(href="/join") Create one now &rarr;
+  div
+    span 😎 Have a Github account? &nbsp;
+    a(href="/github") Continue with Github &rarr;

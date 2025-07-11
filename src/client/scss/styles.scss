@@ -1,6 +1,39 @@
-@import "./_variables";
+@use "variables" as *;
 
-body {
-  background-color: $red;
-  color: $color;
+.flex-container {
+  display: flex;
+  gap: 5px;
+}
+.item1 {
+  flex: 1;
+  text-align: center;
+}
+.item2 {
+  flex: 1;
+  padding-right: 20px;
+  padding-left: 10px;
+  text-align: left;
+}
+.item3 {
+  flex: 1;
+  text-align: left;
+}
+.flex-container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+.flex-container3 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info {
+  color: $info;
+  font-weight: 600;
+}
+.warning {
+  color: $warn;
 }

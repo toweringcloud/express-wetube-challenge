@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  center
+    h2=pageTitle
+
+  if String(loggedInUser._id) === String(user._id)
+    hr
+    div
+      span 😊 Want to edit your profile? &nbsp;
+      a(href="/users/edit") Edit Profile &rarr;

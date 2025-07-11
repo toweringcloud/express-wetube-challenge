@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  center
+    h2=pageTitle
+  br
+  form(method="POST")
+    input(type="email" name="email" placeholder="Email" required)
+    input(type="text" name="username" placeholder="Username" required)
+    input(type="password" name="password" placeholder="Password" required)
+    input(type="password" name="password2" placeholder="Confirm Password" required)
+    input(type="submit" value="JOIN")
+  if errorMessage
+    p.warning=errorMessage
+  br
+  div
+    span 😎 Already have an account? &nbsp;
+    a(href="/login") Login now &rarr;

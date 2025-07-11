@@ -1,9 +1,25 @@
 import express from "express";
 
+import { githubLogin, githubCallback } from "../controllers/githubController";
+import {
+  signup,
+  signupView,
+  signin,
+  signinView,
+  signout,
+} from "../controllers/userController";
+import { protector, publicOnly } from "../middlewares";
+
 const rootRouter = express.Router();
 
 rootRouter.get("/", (req, res) => {
-  res.status(200).send({ pageTitle: "Hello, Wetube!" });
+  // res.status(200).send({ pageTitle: "Hello, Wetube!" });
+  return res.render("home", { pageTitle: "Hello, Wetube!" });
 });
+rootRouter.route("/join").all(publicOnly).get(signupView).post(signup);
+rootRouter.route("/login").all(publicOnly).get(signinView).post(signin);
+rootRouter.get("/logout", protector, signout);
+rootRouter.get("/github", publicOnly, githubLogin);
+rootRouter.get("/github/callback", publicOnly, githubCallback);
 
 export default rootRouter;

@@ -1,0 +1,27 @@
+.flex-container2
+  div
+    span &nbsp;
+    span
+      a(href="/") Home
+    span &nbsp;
+    span
+      a(href="/search") Search
+    span &nbsp;
+    if loggedIn
+      span
+        a(href="/videos/upload") Upload
+      span &nbsp;
+  div
+    if loggedIn
+      span
+        a(href=`/users/${String(loggedInUser._id)}`) Profile
+      span &nbsp;
+      span
+        a(href="/logout") Logout
+    else
+      span
+        a(href="/join") Join
+      span &nbsp;
+      span
+        a(href="/login") Login
+    span &nbsp;
