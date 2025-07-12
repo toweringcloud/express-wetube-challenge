@@ -71,6 +71,7 @@ export const readProfile = async (req, res) => {
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
+  console.log(`${Date.now()} | ${user.username} | ${user._id}`);
   return res.render("users/profile", {
     pageTitle: user.username,
     user,
@@ -78,7 +79,7 @@ export const readProfile = async (req, res) => {
 };
 
 export const updateProfileView = (req, res) => {
-  return res.render("users/profile-edit", { pageTitle: "Edit Profile" });
+  return res.render("users/edit", { pageTitle: "Edit Profile" });
 };
 export const updateProfile = async (req, res) => {
   const {

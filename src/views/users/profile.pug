@@ -5,6 +5,9 @@ block content
     h2=pageTitle
 
   if String(loggedInUser._id) === String(user._id)
+    if loggedInUser.avatarUrl
+      div(style="text-align: center;")
+        img(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
     hr
     div
       span 😊 Want to edit your profile? &nbsp;

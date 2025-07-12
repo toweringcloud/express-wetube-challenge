@@ -13,7 +13,6 @@ import { protector, publicOnly } from "../middlewares";
 const rootRouter = express.Router();
 
 rootRouter.get("/", (req, res) => {
-  // res.status(200).send({ pageTitle: "Hello, Wetube!" });
   return res.render("home", { pageTitle: "Hello, Wetube!" });
 });
 rootRouter.route("/join").all(publicOnly).get(signupView).post(signup);

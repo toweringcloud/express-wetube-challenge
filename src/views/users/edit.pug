@@ -10,8 +10,8 @@ block content
         label(for="loginid") Email Address
         input(type="email" name="email" placeholder="Email" required value=loggedInUser.email)
       .item3
-        label(for="loginid") Login ID
-        input(type="text" id="loginid" name="username" placeholder="Username" required value=loggedInUser.username)
+        label(for="loginid") Username (Login ID)
+        input(type="text" id="loginid" name="username" placeholder="Username" disabled value=loggedInUser.username)
     .flex-container
       .item3
         label(for="nickname") Nickname
@@ -20,11 +20,13 @@ block content
         label(for="location") Location
         input(type="text" id="location" name="location" placeholder="Location" value=loggedInUser.location)
     label(for="avatar") Avatar File
-    input(type="file" id="avatar" name="avatar" accept="image/*" value=loggedInUser.avatarUrl)
+    input(type="file" id="avatar" name="avatar" accept="image/*")
+    if loggedInUser.avatarUrl
+      img(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
     center
       input(type="submit" value="MODIFY")
   if !loggedInUser.socialOnly
     br
     div
       span 😊 Want to change your password? &nbsp;
-      a(href="change-pw") Change Password &rarr;
+      a(href="/users/change-pw") Change Password &rarr;
