@@ -1,0 +1,15 @@
+extends ../layout
+include ../mixins/video
+
+block content
+  center
+    h2=pageTitle
+  p.info ✨ Please input the keyword to search video by title.
+  form(method="GET")
+    input(type="text" name="keyword" placeholder="Search by title" minlnegth=2 required value=keyword)
+    center
+      input(type="submit" value="SEARCH")
+  br
+  div
+    each item in videos
+      +video(item)

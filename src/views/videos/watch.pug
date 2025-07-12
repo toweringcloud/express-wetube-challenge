@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  center
+    h2=`${video.title}`
+  if video.thumbnail
+    br
+    .flex-container
+      .item1
+        img(src=`${video.thumbnail}` width='90%' alt=`${video.title}'s thumbnail`)
+        small=`uploaded by ${video.owner.username}`
+        if loggedIn
+          if String(video.owner._id) === String(loggedInUser._id)
+            p
+            .flex-container3
+              include ../partials/mutation
+      .item2
+        small=video.summary
+        p
+        if video.fileUrl
+          .flex-container2
+            span=video.tags.join(", ")
+            span=`✨ ${video.hits} hits`
+          video(src=`/${video.fileUrl.replace("files", "upload")}` width='100%' controls)
+          p
+        else
+          each tag in video.tags
+            li #{tag}
+          p
+          big=`✨ ${video.hits} hits`
+  else
+    p=video.summary
+    each tag in video.tags
+      li #{tag}
+    p
+    big=`✨ ${video.hits} hits`
+    if loggedIn
+      if String(video.owner._id) === String(loggedInUser._id)
+        hr
+        include ../partials/mutation

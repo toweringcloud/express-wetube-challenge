@@ -8,8 +8,8 @@ html(lang="ko")
     link(rel="stylesheet", href="/static/css/styles.css")
     title #{pageTitle} | #{siteTitle}
   body  
-    include ./navigation
+    include partials/navigation
     main
       block content
-    include ./footer
+    include partials/footer
     script(src="/static/js/main.js") 

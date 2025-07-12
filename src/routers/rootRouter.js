@@ -8,13 +8,13 @@ import {
   signinView,
   signout,
 } from "../controllers/userController";
+import { listVideo, searchVideo } from "../controllers/videoController";
 import { protector, publicOnly } from "../middlewares";
 
 const rootRouter = express.Router();
 
-rootRouter.get("/", (req, res) => {
-  return res.render("home", { pageTitle: "Hello, Wetube!" });
-});
+rootRouter.get("/", listVideo);
+rootRouter.get("/search", searchVideo);
 rootRouter.route("/join").all(publicOnly).get(signupView).post(signup);
 rootRouter.route("/login").all(publicOnly).get(signinView).post(signin);
 rootRouter.get("/logout", protector, signout);

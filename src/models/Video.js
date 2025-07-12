@@ -3,14 +3,15 @@ import mongoose from "mongoose";
 const videoSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true, maxLength: 50 },
   summary: { type: String, required: true, trim: true, minLength: 20 },
-  fileUrl: { type: String },
-  thumbUrl: { type: String },
+  fileUrl: { type: String, required: true },
+  thumbnail: { type: String },
   tags: [{ type: String }],
   hits: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: true },
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 videoSchema.static("formatTags", function (tags) {

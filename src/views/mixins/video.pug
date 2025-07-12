@@ -1,0 +1,5 @@
+mixin video(item = {})
+  div
+    li
+      a(href=`/videos/${item.id}`)=`${item.title}` 
+      small #{" : " + item.summary.substring(0, 50) + " ..."}

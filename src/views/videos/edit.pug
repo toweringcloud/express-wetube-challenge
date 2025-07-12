@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  center
+    h2=pageTitle
+  p.info=`✨ Please fill the form to update a video (${video.title}).`
+  form(method="POST" enctype="multipart/form-data")
+    label(for="title") Title
+    input(type="text" id="title" name="title" placeholder="Title" required maxlength=50 value=video.title)
+    label(for="synopsis") Summary
+    input(type="text" id="synopsis" name="summary" placeholder="Summary" required minlength=20 value=video.summary)
+    label(for="tags") Tags
+    input(type="text" id="tags" name="tags" placeholder="Tags (by comma)" value=video.tags.join(', '))
+    label(for="video") Video File
+    input(type="file" id="video" name="video" accept="video/*" value=video.fileUrl)
+    center
+      input(type="submit" value="MODIFY")
+  if errorMessage
+    p.warning=errorMessage
