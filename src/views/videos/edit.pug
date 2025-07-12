@@ -3,7 +3,7 @@ extends ../layout
 block content
   center
     h2=pageTitle
-  p.info=`✨ Please fill the form to update a video (${video.title}).`
+  p.info=`💫 Please fill the form to update a video (${video.title}).`
   form(method="POST" enctype="multipart/form-data")
     label(for="title") Title
     input(type="text" id="title" name="title" placeholder="Title" required maxlength=50 value=video.title)

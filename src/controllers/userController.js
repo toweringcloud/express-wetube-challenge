@@ -86,22 +86,29 @@ export const updateProfile = async (req, res) => {
     session: {
       user: { _id, avatarUrl },
     },
-    body: { email, username, nickname, location },
+    body: { email, nickname, location },
     file,
   } = req;
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    {
-      email,
-      username,
-      nickname,
-      location,
-      avatarUrl: file ? file.path : avatarUrl,
-    },
-    { new: true }
-  );
-  req.session.user = updatedUser;
-  return res.redirect("/users/edit");
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        email,
+        nickname,
+        location,
+        avatarUrl: file ? file.path : avatarUrl,
+      },
+      { new: true }
+    );
+    req.session.user = updatedUser;
+    return res.redirect("/users/edit");
+  } catch (error) {
+    return res.status(400).render("users/edit", {
+      pageTitle: "Home",
+      // errorMessage: error._message,
+      errorMessage: `😖 This email(${email}) is already taken.`,
+    });
+  }
 };
 
 export const changePasswordView = (req, res) => {
