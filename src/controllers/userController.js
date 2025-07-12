@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
   if (exists) {
     return res.status(400).render("users/join", {
       pageTitle,
-      errorMessage: "😖 This username/email is already taken.",
+      errorMessage: "😖 This username or email is already taken.",
     });
   }
   try {
@@ -41,7 +41,7 @@ export const signinView = (req, res) => {
 export const signin = async (req, res) => {
   const { username, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username, socialOnly: false });
   if (!user) {
     return res.status(400).render("users/login", {
       pageTitle,
