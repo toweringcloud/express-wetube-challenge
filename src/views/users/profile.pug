@@ -1,17 +1,25 @@
 extends ../layout
+include ../mixins/video
 
 block content
   center
     h2=pageTitle
-
-  if String(loggedInUser._id) === String(user._id)
-    if loggedInUser.avatarUrl
-      div(style="text-align: center;")
-        if String(loggedInUser.avatarUrl).startsWith("http")
-          img(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
-        else
-          img(src=`/${loggedInUser.avatarUrl.replace("files", "upload")}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
-    hr
-    div
-      span 😊 Want to edit your profile? &nbsp;
-      a(href="/users/edit") Edit Profile &rarr;
+  br
+  if loggedInUser.avatarUrl
+    div(style="text-align: center;")
+      if String(loggedInUser.avatarUrl).startsWith("http")
+        img(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
+      else
+        img(src=`/${loggedInUser.avatarUrl.replace("files", "upload")}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
+      if String(loggedInUser._id) === String(user._id)
+        div
+          span 😊 Want to edit your profile? &nbsp;
+          a(href="/users/edit") Edit Profile &rarr;
+  br
+  p.info=`💫 Following video(s) is(are) uploaded by ${pageTitle}.`
+  if user.videos && user.videos.length > 0
+    div.grid-container
+      each item in user.videos
+        +video(item)
+  else
+    li Sorry, No Videos!

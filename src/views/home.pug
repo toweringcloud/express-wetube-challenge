@@ -5,7 +5,9 @@ block content
   center
     h2=pageTitle
   p.info ✨ Please check your favorite video(s).
-  each item in videos
-    +video(item)
+  if videos && videos.length > 0
+    div.grid-container
+      each item in videos
+        +video(item)
   else
     li Sorry, No Videos!
