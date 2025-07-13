@@ -6,8 +6,6 @@ module.exports = {
     main: "./src/client/js/main.js",
     player: "./src/client/js/player.js",
   },
-  mode: "development",
-  watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/styles.css",

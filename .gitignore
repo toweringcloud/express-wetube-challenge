@@ -142,3 +142,4 @@ vite.config.ts.timestamp-*
 package-lock.json
 files/
 assets/
+dist
