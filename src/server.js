@@ -4,6 +4,7 @@ import path from "path";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
+import apiRouter from "./routers/apiRouter";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -41,6 +42,7 @@ app.use("/static", express.static("assets"));
 
 // Dynamic Routes
 app.use("/", rootRouter);
+app.use("/api", apiRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 

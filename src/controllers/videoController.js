@@ -119,3 +119,15 @@ export const deleteVideo = async (req, res) => {
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
+
+// mutations for api routes
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.hits = video.hits + 1;
+  await video.save();
+  return res.sendStatus(200);
+};

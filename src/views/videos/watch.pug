@@ -9,9 +9,29 @@ block content
     .flex-container2
       span=video.tags.join(", ")
       span=`✨ ${video.hits} hits`
-    video(src=`/${video.fileUrl.replace("files", "upload")}` width='100%' controls)
+    div#videoContainer(data-id=video._id, style="color: #fff;")
+      video(src=`${video.fileUrl.startsWith("http") ? video.fileUrl : '/' + video.fileUrl.replace("files", "upload")}`)
+      div#videoControls.videoControls
+        div.videoControls__play
+          span#play.videoControls__playBtn
+            i.fas.fa-play
+          div.videoControls__time
+            span#currenTime 00:00
+            span  / 
+            span#totalTime 00:00
+        input(type="range" step="1" value="0" min="0")#timeline.videoControls__timeline
+        div.videoControls__volume
+          input(type="range" step="0.1" value=0.5 min="0" max="1")#volume
+          span#mute
+            i.fas.fa-volume-up
+        div
+          span#fullScreen
+            i.fas.fa-expand
   if loggedIn
     if String(video.owner._id) === String(loggedInUser._id)
       p
       .flex-container3
         include ../partials/mutation
+
+block scripts
+  script(src="/static/js/player.js")

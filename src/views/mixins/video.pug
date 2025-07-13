@@ -1,5 +1,8 @@
 mixin video(item = {})
   .video-item
     a(href=`/videos/${item.id}`)=`${item.title}`
-    video(src=`/${item.fileUrl.replace("files", "upload")}` width='100%' controls)
+    if item.fileUrl.startsWith("http")
+      video(src=item.fileUrl width='100%' controls)
+    else
+      video(src=`/${item.fileUrl.replace("files", "upload")}` width='100%' controls)
     small #{item.summary.substring(0, 50) + " ..."}
