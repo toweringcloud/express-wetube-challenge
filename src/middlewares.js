@@ -24,12 +24,24 @@ export const publicOnly = (req, res, next) => {
   }
 };
 
-export const avatarUpload = multer({
-  dest: "files/avatars/",
-  limits: { fileSize: 5000000 },
-});
+export const avatarUpload =
+  process.env.MODE === "OPS"
+    ? multer({
+        storage: multer.memoryStorage(),
+        limits: { fileSize: 3 * 1024 * 1024 },
+      })
+    : multer({
+        dest: "files/avatars/",
+        limits: { fileSize: 3 * 1024 * 1024 },
+      });
 
-export const videoUpload = multer({
-  dest: "files/videos/",
-  limits: { fileSize: 50000000 },
-});
+export const videoUpload =
+  process.env.MODE === "OPS"
+    ? multer({
+        storage: multer.memoryStorage(),
+        limits: { fileSize: 50 * 1024 * 1024 },
+      })
+    : multer({
+        dest: "files/videos/",
+        limits: { fileSize: 50 * 1024 * 1024 },
+      });

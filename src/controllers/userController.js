@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/User";
+import { getFileUrl } from "../util";
 
 export const signupView = (req, res) => {
   return res.render("users/join", { pageTitle: "Join" });
@@ -52,7 +53,7 @@ export const signin = async (req, res) => {
   if (!ok) {
     return res.status(400).render("users/login", {
       pageTitle,
-      errorMessage: "Wrong password",
+      errorMessage: "😖 Wrong password!",
     });
   }
   req.session.loggedIn = true;
@@ -90,13 +91,14 @@ export const updateProfile = async (req, res) => {
     file,
   } = req;
   try {
+    const fileUrl = file && (await getFileUrl(file, "image"));
     const updatedUser = await User.findByIdAndUpdate(
       _id,
       {
         email,
         nickname,
         location,
-        avatarUrl: file ? file.path : avatarUrl,
+        avatarUrl: fileUrl ? fileUrl : avatarUrl,
       },
       { new: true }
     );
@@ -106,7 +108,7 @@ export const updateProfile = async (req, res) => {
     return res.status(400).render("users/edit", {
       pageTitle: "Home",
       // errorMessage: error._message,
-      errorMessage: `😖 This email(${email}) is already taken.`,
+      errorMessage: `😖 ${JSON.stringify(error)}`,
     });
   }
 };

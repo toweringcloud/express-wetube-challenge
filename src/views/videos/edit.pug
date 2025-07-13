@@ -13,8 +13,10 @@ block content
     input(type="text" id="tags" name="tags" placeholder="Tags (by comma)" value=video.tags.join(', '))
     label(for="video") Video File
     input(type="file" id="video" name="video" accept="video/*")
-    if video.fileUrl
-      video(src=`/${video.fileUrl.replace("files", "upload")}` width='30%' controls)
+    if video.fileUrl.startsWith("http")
+      video(src=video.fileUrl width='30%' controls)
+    else
+      video(src=`/${item.fileUrl.replace("files", "upload")}` width='100%' controls)
     center
       input(type="submit" value="MODIFY")
   if errorMessage

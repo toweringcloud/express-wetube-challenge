@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import { getFileUrl } from "../util";
 
 // queries (read-list/search/watch)
 export const listVideo = async (req, res) => {
@@ -48,12 +49,16 @@ export const createVideo = async (req, res) => {
     if (!title || !summary || !tags) {
       throw new Error("Mandatory fields are required.");
     }
+    if (!file) {
+      return res.status(400).send("No file to upload.");
+    }
+    const fileUrl = await getFileUrl(file, "video");
     const newVideo = await Video.create({
       title,
       summary,
       tags: Video.formatTags(tags),
       thumbnail,
-      fileUrl: file ? file.path : undefined,
+      fileUrl,
       owner: user._id,
     });
     const userInfo = await User.findById(user._id);
@@ -95,12 +100,13 @@ export const updateVideo = async (req, res) => {
     body: { title, summary, tags, thumbnail },
     file,
   } = req;
+  const fileUrl = file && (await getFileUrl(file, "video"));
   await Video.findByIdAndUpdate(id, {
     title,
     summary,
     tags: Video.formatTags(tags),
     thumbnail,
-    fileUrl: file ? file.path : undefined,
+    fileUrl,
     updatedAt: Date.now(),
   });
   return res.redirect("/");
