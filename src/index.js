@@ -11,6 +11,6 @@ const HOST =
   process.env.MODE === "DEV"
     ? `${process.env.API_SERVER_URL}:${PORT}`
     : process.env.API_SERVER_URL;
-const handleListening = () => console.log(`✅ Server listenting on ${HOST} 🚀`);
+const handleListening = () => console.log(`✅ Server listenting on ${HOST}`);
 
 app.listen(PORT, handleListening);
