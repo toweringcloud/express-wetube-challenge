@@ -1,6 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
-import { getFileUrl } from "../util";
+import { getFileUrl, removeFile } from "../util";
 
 // queries (read-list/search/watch)
 export const listVideo = async (req, res) => {
@@ -122,6 +122,16 @@ export const deleteVideo = async (req, res) => {
   if (String(video.owner) !== String(user._id)) {
     return res.status(403).redirect("/");
   }
+  // step 1) remove video file from storage
+  if (video.fileUrl && process.env.MODE === "OPS") {
+    const fileName = video.fileUrl.split("/").pop();
+    await removeFile(fileName, "video");
+  }
+  // step 2) remove video from user's video list
+  await User.findByIdAndUpdate(user._id, {
+    $pull: { videos: id },
+  });
+  // step 3) remove video from database
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };

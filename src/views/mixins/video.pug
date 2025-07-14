@@ -5,4 +5,7 @@ mixin video(item = {})
       video(src=item.fileUrl width='100%' controls)
     else
       video(src=`/${item.fileUrl.replace("files", "upload")}` width='100%' controls)
-    small #{item.summary.substring(0, 50) + " ..."}
+    if item.summary.length > 50
+      small #{item.summary.substring(0, 50) + " ..."}
+    else 
+      small #{item.summary}
