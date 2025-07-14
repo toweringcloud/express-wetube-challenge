@@ -30,11 +30,12 @@ $ npm i
 ```sh
 $ cat .env
 MODE=DEV
-API_ADDRESS=localhost
-API_PORT_NO=4567
+API_SERVER_URL=http://localhost
+API_PORT_NO=3000
 COOKIE_SECRET={YOUR_COOKIE_SECRET}
 GITHUB_API_URL=https://api.github.com
 GITHUB_AUTH_URL=https://github.com/login/oauth
+GITHUB_CALLBACK_URL=http://localhost:3000/github/callback
 GITHUB_CLIENT_ID={YOUR_GITHUB_CLIENT_ID}
 GITHUB_CLIENT_SECRET={YOUR_GITHUB_CLIENT_SECRET}
 DATABASE_URL=mongodb://id:pw@127.0.0.1:27017/wetube

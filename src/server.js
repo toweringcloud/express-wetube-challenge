@@ -1,4 +1,5 @@
 import express from "express";
+import flash from "express-flash";
 import morgan from "morgan";
 import path from "path";
 import session from "express-session";
@@ -34,6 +35,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
   })
 );
+app.use(flash());
 app.use(localsMiddleware);
 
 // Static Routes
