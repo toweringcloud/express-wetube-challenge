@@ -1,4 +1,5 @@
 import express from "express";
+import favicon from "serve-favicon";
 import flash from "express-flash";
 import morgan from "morgan";
 import path from "path";
@@ -39,6 +40,8 @@ app.use(flash());
 app.use(localsMiddleware);
 
 // Static Routes
+// app.use(express.static("/public"));
+app.use(favicon(path.join(__dirname, "../public", "favicon.png")));
 app.use("/upload", express.static("files"));
 app.use("/static", express.static("assets"));
 

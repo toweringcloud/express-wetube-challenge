@@ -1,6 +1,6 @@
 mixin video(item = {})
   .video-item
-    a(href=`/videos/${item.id}`)=`${item.title}`
+    a(href=`/videos/${item.id}`)=item.title
     if item.fileUrl.startsWith("http")
       video(src=item.fileUrl width='100%' controls)
     else
