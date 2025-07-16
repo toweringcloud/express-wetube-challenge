@@ -4,7 +4,7 @@ import { getFileUrl, removeFile } from "../util";
 
 // queries (read-list/search/watch)
 export const listVideo = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: -1 });
+  const videos = await Video.find({}).sort({ createdAt: -1 }).populate("owner");
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -16,8 +16,9 @@ export const searchVideo = async (req, res) => {
       title: {
         $regex: new RegExp(keyword, "i"),
       },
-    });
-    console.log(keyword, videos);
+    })
+      .sort({ createdAt: -1 })
+      .populate("owner");
   }
   return res.render("videos/search", {
     pageTitle: "Search Video",

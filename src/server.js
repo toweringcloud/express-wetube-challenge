@@ -22,6 +22,7 @@ app.set("views", path.join(__dirname, "views"));
 const logger = morgan("dev");
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Cookie Session
 app.use(

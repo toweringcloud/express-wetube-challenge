@@ -7,7 +7,7 @@ import {
   changePassword,
   changePasswordView,
 } from "../controllers/userController";
-import { avatarUpload, protector } from "../middlewares";
+import { fileUpload, protector } from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -16,7 +16,7 @@ userRouter
   .route("/edit")
   .all(protector)
   .get(updateProfileView)
-  .post(avatarUpload.single("avatar"), updateProfile);
+  .post(fileUpload("avatars", 3).single("avatar"), updateProfile);
 userRouter
   .route("/change-pw")
   .all(protector)

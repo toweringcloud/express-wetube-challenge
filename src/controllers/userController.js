@@ -73,6 +73,7 @@ export const readProfile = async (req, res) => {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
   console.log(`${Date.now()} | ${user.username} | ${user._id}`);
+  console.log(user);
   return res.render("users/profile", {
     pageTitle: user.username,
     user,

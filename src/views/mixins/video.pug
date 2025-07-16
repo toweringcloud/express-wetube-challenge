@@ -1,11 +1,25 @@
 mixin video(item = {})
   .video-item
-    a(href=`/videos/${item.id}`)=item.title
+    div.flex-container2
+      span
+        a(href=`/videos/${item.id}`)=item.title
+      span
+        //- small=`❤️🩶`
     if item.fileUrl.startsWith("http")
       video(src=item.fileUrl width='100%' controls)
     else
       video(src=`/${item.fileUrl.replace("files", "upload")}` width='100%' controls)
+    div.flex-container2
+      span
+        small=`✨${item.hits} `
+        small=`💬${item.comments.length}`
+      span
+        if item.owner.username
+          small
+            a(href=`/users/${String(item.owner._id)}`)=item.owner.username
+        else
+          small #{new Date(item.createdAt).toISOString().slice(0, 10)}
     if item.summary.length > 50
       small #{item.summary.substring(0, 50) + " ..."}
-    else 
+    else
       small #{item.summary}

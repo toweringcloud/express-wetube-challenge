@@ -19,7 +19,7 @@ block content
   p.info=`💫 Following video(s) is(are) uploaded by ${pageTitle}.`
   if user.videos && user.videos.length > 0
     div.grid-container
-      each item in user.videos
+      each item in user.videos.reverse()
         +video(item)
   else
     li Sorry, No Videos!
