@@ -8,9 +8,9 @@ block content
   if loggedInUser.avatarUrl
     div(style="text-align: center;")
       if String(loggedInUser.avatarUrl).startsWith("http")
-        img(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
+        img.avatar(src=`${loggedInUser.avatarUrl}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
       else
-        img(src=`/${loggedInUser.avatarUrl.replace("files", "upload")}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
+        img.avatar(src=`/${loggedInUser.avatarUrl.replace("files", "upload")}` width='30%' alt=`${loggedInUser.username}'s Avatar`)
   if String(loggedInUser._id) === String(user._id)
     div(style="text-align: center;")
       span 😊 Want to edit your profile? &nbsp;
