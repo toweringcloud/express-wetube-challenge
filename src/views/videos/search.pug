@@ -9,8 +9,8 @@ block content
     input(type="text" name="keyword" placeholder="Search by title" minlnegth=2 required value=keyword)
     center
       input(type="submit" value="SEARCH")
-  br
   if videos && videos.length > 0
+    br
     div.grid-container
       each item in videos
         +video(item)
