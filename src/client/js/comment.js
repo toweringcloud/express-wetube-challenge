@@ -17,6 +17,7 @@ const addComment = (content, id) => {
   const spanR = document.createElement("span");
   spanR.className = "video__comment_remove";
   spanR.innerText = "❌";
+  spanR.addEventListener("click", handleCommentRemove);
   newComment.appendChild(spanR);
   videoComments.prepend(newComment);
 };
@@ -53,6 +54,7 @@ const handleCommentRemove = async (event) => {
   const videoId = videoContainer.dataset.id;
   const videoComment = event.target.parentElement;
   const commentId = videoComment.dataset.id;
+  console.log("handleCommentRemove", videoId, commentId);
   if (!commentId) return;
 
   const response = await fetch(`/api/videos/${videoId}/comment`, {

@@ -205,11 +205,16 @@ export const createComment = async (req, res) => {
 export const updateComment = async (req, res) => {
   const {
     session: { user },
-    body: { id, content },
-    params: { videoId },
+    body: { id: commentId, content },
+    params: { id: videoId },
   } = req;
 
-  const comment = await Comment.findById(id);
+  const video = await Video.findById(videoId);
+  if (!video) {
+    return res.status(404).render("404", { pageTitle: "Video not found." });
+  }
+
+  const comment = await Comment.findById(commentId);
   if (!comment) {
     return res.status(404).render("404", { pageTitle: "Comment not found." });
   }
@@ -218,7 +223,7 @@ export const updateComment = async (req, res) => {
   }
 
   // modify comment
-  await Comment.findByIdAndUpdate(id, {
+  await Comment.findByIdAndUpdate(commentId, {
     content,
   });
   return res.sendStatus(200);
@@ -227,11 +232,16 @@ export const updateComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   const {
     session: { user },
-    body: { id },
-    params: { videoId },
+    body: { id: commentId },
+    params: { id: videoId },
   } = req;
 
-  const comment = await Comment.findById(id);
+  const video = await Video.findById(videoId);
+  if (!video) {
+    return res.status(404).render("404", { pageTitle: "Video not found." });
+  }
+
+  const comment = await Comment.findById(commentId);
   if (!comment) {
     return res.status(404).render("404", { pageTitle: "Comment not found." });
   }
@@ -241,15 +251,14 @@ export const deleteComment = async (req, res) => {
 
   // remove commentId from owner
   await User.findByIdAndUpdate(user._id, {
-    $pull: { comments: id },
+    $pull: { comments: commentId },
   });
 
   // remove commentId from video
-  await Video.findByIdAndUpdate(videoId, {
-    $pull: { comments: id },
-  });
+  video.comments = video.comments.filter((id) => id !== commentId);
+  video.save();
 
   // remove comment
-  await Comment.findByIdAndDelete(id);
+  await Comment.findByIdAndDelete(commentId);
   return res.status(204).end();
 };
