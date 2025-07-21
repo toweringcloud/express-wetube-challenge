@@ -1,5 +1,6 @@
 @use "layout.scss";
 @use "player.scss";
+@use "watch.scss";
 
 // a {
 //   color: inherit;
@@ -16,9 +17,8 @@ body {
 
 main {
   max-width: 1200px;
-  width: 100%;
+  width: 96%;
   margin: 0 auto;
-  // margin-top: 50px;
 }
 
 @keyframes goAway {

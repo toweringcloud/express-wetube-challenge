@@ -31,13 +31,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px;
+  padding-right: 4px;
   width: 100%;
 }
 .flex-container3 {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 10px;
 }
 
 .grid-container {
@@ -62,4 +63,9 @@
   object-fit: cover;
   // border: 2px solid #000000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.seperator {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

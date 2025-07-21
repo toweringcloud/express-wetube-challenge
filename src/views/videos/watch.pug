@@ -3,12 +3,16 @@ extends ../layout
 block content
   center
     h2=`${video.title}`
-  small=video.summary
   br
   if video.fileUrl
     .flex-container2
-      span=video.tags.join(", ")
-      span=`✨ ${video.hits} hits`
+      small.video__owner By 
+        a(href=`/users/${video.owner._id}`)=video.owner.username
+      if loggedInUser && String(video.owner._id) === String(loggedInUser._id)
+        .flex-container3
+          include ../partials/mutation
+      else
+        small #{new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
     div#videoContainer(data-id=video._id, style="color: #fff;")
       video(src=`${video.fileUrl.startsWith("http") ? video.fileUrl : '/' + video.fileUrl.replace("files", "upload")}`)
       div#videoControls.videoControls
@@ -17,7 +21,7 @@ block content
             i.fas.fa-play
           div.videoControls__time
             span#currenTime 00:00
-            span  / 
+            span / 
             span#totalTime 00:00
         input(type="range" step="1" value="0" min="0")#timeline.videoControls__timeline
         div.videoControls__volume
@@ -27,11 +31,26 @@ block content
         div
           span#fullScreen
             i.fas.fa-expand
-  if loggedIn
-    if String(video.owner._id) === String(loggedInUser._id)
-      p
-      .flex-container3
-        include ../partials/mutation
+    .flex-container2
+      span=video.tags.join(", ")
+      span=`✨ ${video.hits} hits`
+    small=video.summary
+    if video.comments.length > 0
+      hr.seperator
+    .video__comments
+      each comment in video.comments.reverse()
+        div.video__comment(data-id=comment._id)
+          span
+            i.fas.fa-comment
+            span  #{comment.content}
+          if loggedInUser && String(video.owner._id) === String(loggedInUser._id)
+            span.video__comment_remove ❌
+    if loggedIn
+      form#commentForm.video__comment_add
+        textarea(cols="30" rows="5" minLength="20" placeholder="Write a nice commment...")
+        button ADD
 
 block scripts
   script(src="/static/js/player.js")
+  if loggedIn
+    script(src="/static/js/comment.js")

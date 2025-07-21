@@ -3,6 +3,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
+    comment: "./src/client/js/comment.js",
     main: "./src/client/js/main.js",
     player: "./src/client/js/player.js",
   },
