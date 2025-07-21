@@ -37,7 +37,7 @@ const handleCommentAdd = async (event) => {
     body: JSON.stringify({ content }),
   });
   // content.js:1 Uncaught (in promise) The message port closed before a response was received.
-  console.log("handleCommentAdd", response.status);
+  // console.log("handleCommentAdd", response.status);
   if (response.status === 201) {
     textarea.value = "";
     const { newCommentId } = await response.json();
@@ -54,7 +54,7 @@ const handleCommentRemove = async (event) => {
   const videoId = videoContainer.dataset.id;
   const videoComment = event.target.parentElement;
   const commentId = videoComment.dataset.id;
-  console.log("handleCommentRemove", videoId, commentId);
+  // console.log("handleCommentRemove", videoId, commentId);
   if (!commentId) return;
 
   const response = await fetch(`/api/videos/${videoId}/comment`, {

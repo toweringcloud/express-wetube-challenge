@@ -35,8 +35,8 @@ block content
       span=video.tags.join(", ")
       span=`✨ ${video.hits} hits`
     small=video.summary
-    if video.comments.length > 0
-      hr.seperator
+    br
+    br
     .video__comments
       each comment in video.comments.reverse()
         div.video__comment(data-id=comment._id)

@@ -71,7 +71,7 @@ export const createVideo = async (req, res) => {
     // add videoId into owner
     const userInfo = await User.findById(user._id);
     userInfo.videos.push(newVideo._id);
-    userInfo.save();
+    await userInfo.save();
 
     return res.redirect("/");
   } catch (error) {
@@ -192,12 +192,12 @@ export const createComment = async (req, res) => {
     return res.sendStatus(404);
   }
   video.comments.push(comment._id);
-  video.save();
+  await video.save();
 
   // add commentId into owner
   const owner = await User.findById(user._id);
   owner.comments.push(comment._id);
-  owner.save();
+  await owner.save();
 
   return res.status(201).send({ newCommentId: comment._id });
 };
@@ -255,8 +255,8 @@ export const deleteComment = async (req, res) => {
   });
 
   // remove commentId from video
-  video.comments = video.comments.filter((id) => id !== commentId);
-  video.save();
+  video.comments = video.comments.filter((k) => String(k) !== commentId);
+  await video.save();
 
   // remove comment
   await Comment.findByIdAndDelete(commentId);

@@ -35,6 +35,8 @@
     font-size: 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     span.video__comment_remove:hover {
       cursor: pointer;
     }
